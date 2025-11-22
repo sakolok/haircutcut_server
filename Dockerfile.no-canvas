@@ -1,4 +1,4 @@
-# 백엔드 Dockerfile
+# 백엔드 Dockerfile (canvas 없이 - 더 빠른 빌드)
 FROM node:20-alpine
 
 WORKDIR /app
@@ -7,7 +7,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # 의존성 설치
-RUN npm ci --omit=dev
+RUN npm ci --only=production
 
 # 소스 코드 복사
 COPY . .
@@ -24,3 +24,4 @@ ENV PORT=8080
 
 # 서버 실행
 CMD ["node", "server.js"]
+
