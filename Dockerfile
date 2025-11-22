@@ -1,0 +1,27 @@
+# 백엔드 Dockerfile
+FROM node:20-alpine
+
+WORKDIR /app
+
+# package.json과 package-lock.json 복사
+COPY package*.json ./
+
+# 의존성 설치
+RUN npm ci --only=production
+
+# 소스 코드 복사
+COPY . .
+
+# uploads 디렉토리 생성
+RUN mkdir -p uploads
+
+# 포트 8080 노출
+EXPOSE 8080
+
+# 환경 변수 설정 (필요시 .env 파일 사용)
+ENV NODE_ENV=production
+ENV PORT=8080
+
+# 서버 실행
+CMD ["node", "server.js"]
+
